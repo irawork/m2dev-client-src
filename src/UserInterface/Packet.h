@@ -116,7 +116,6 @@ enum
 	
 	HEADER_CG_HACK								= 105,
     HEADER_CG_CHANGE_NAME                       = 106,
-    HEADER_CG_SMS                               = 107,
     HEADER_CG_CHINA_MATRIX_CARD                 = 108,
     HEADER_CG_LOGIN2                            = 109,
 	HEADER_CG_DUNGEON							= 110,
@@ -538,13 +537,6 @@ typedef struct command_whisper
     char        szNameTo[CHARACTER_NAME_MAX_LEN + 1];
 } TPacketCGWhisper;
 
-typedef struct command_sms
-{
-    uint8_t        bHeader;
-    uint16_t        wSize;
-    char        szNameTo[CHARACTER_NAME_MAX_LEN + 1];
-} TPacketCGSMS;
-
 enum EBattleMode
 {
 	BATTLEMODE_ATTACK = 0,
@@ -740,7 +732,6 @@ enum
 	MESSENGER_SUBHEADER_GC_LOGIN,
 	MESSENGER_SUBHEADER_GC_LOGOUT,
 	MESSENGER_SUBHEADER_GC_INVITE,
-	MESSENGER_SUBHEADER_GC_MOBILE,
 };
 
 typedef struct packet_messenger
@@ -760,7 +751,6 @@ enum
 {
 	MESSENGER_CONNECTED_STATE_OFFLINE,
 	MESSENGER_CONNECTED_STATE_ONLINE,
-	MESSENGER_CONNECTED_STATE_MOBILE,
 };
 
 typedef struct packet_messenger_list_online
