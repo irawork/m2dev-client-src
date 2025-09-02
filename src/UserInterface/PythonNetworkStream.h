@@ -62,7 +62,6 @@ class CPythonNetworkStream : public CNetworkStream, public CSingleton<CPythonNet
 
 		enum
 		{
-			PHASE_WINDOW_LOGO,
 			PHASE_WINDOW_LOGIN,
 			PHASE_WINDOW_SELECT,
 			PHASE_WINDOW_CREATE,

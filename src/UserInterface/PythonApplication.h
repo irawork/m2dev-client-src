@@ -244,13 +244,6 @@ class CPythonApplication : public CMSApplication, public CInputKeyboard, public 
 		bool LoadCameraSetting(const char * c_szFileName);
 
 		void SetForceSightRange(int iRange);
-	
-
-	public:
-		int OnLogoOpen(char* szName);
-		int OnLogoUpdate();
-		void OnLogoRender();
-		void OnLogoClose();
 
 	protected:
 		IGraphBuilder*			m_pGraphBuilder;			// Graph Builder
@@ -260,12 +253,8 @@ class CPythonApplication : public CMSApplication, public CInputKeyboard, public 
 		IMediaEventEx*			m_pMediaEvent;				// Media Event
 		IVideoWindow*			m_pVideoWnd;				// Video Window
 		IBasicVideo*			m_pBasicVideo;
-		uint8_t*					m_pCaptureBuffer;			// 영상 이미지를 캡처한 버퍼
+		uint8_t*				m_pCaptureBuffer;			// 영상 이미지를 캡처한 버퍼
 		LONG					m_lBufferSize;				// Video 버퍼 크기 변수 
-		CGraphicImageTexture*	m_pLogoTex;					// 출력할 텍스쳐
-		bool					m_bLogoError;				// 영상 읽기 상태
-		bool					m_bLogoPlay;
-
 		int						m_nLeft, m_nRight, m_nTop, m_nBottom;
 
 

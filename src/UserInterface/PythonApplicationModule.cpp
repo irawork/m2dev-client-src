@@ -1138,34 +1138,6 @@ PyObject* appIsLiveStage(PyObject* poSelf, PyObject* poArgs)
 	return Py_BuildValue("i", nIsLiveStage);
 }
 
-PyObject* appLogoOpen(PyObject* poSelf, PyObject* poArgs)
-{
-	char* szName;
-	if (!PyTuple_GetString(poArgs, 0, &szName))
-		return Py_BuildException();
-
-	int nIsSuccess = 1; //CPythonApplication::Instance().OnLogoOpen(szName);
-	return Py_BuildValue("i", nIsSuccess);
-}
-
-PyObject* appLogoUpdate(PyObject* poSelf, PyObject* poArgs)
-{
-	int nIsRun = 0; //CPythonApplication::Instance().OnLogoUpdate();
-	return Py_BuildValue("i", nIsRun);
-}
-
-PyObject* appLogoRender(PyObject* poSelf, PyObject* poArgs)
-{
-	//CPythonApplication::Instance().OnLogoRender();
-	return Py_BuildNone();
-}
-
-PyObject* appLogoClose(PyObject* poSelf, PyObject* poArgs)
-{
-	//CPythonApplication::Instance().OnLogoClose();
-	return Py_BuildNone();
-}
-
 void initapp()
 {
 	static PyMethodDef s_methods[] =
@@ -1298,14 +1270,7 @@ void initapp()
 		{ "IsVisibleNotice",			appIsVisibleNotice,				METH_VARARGS },
 		{ "EnableTestServerFlag",		appEnableTestServerFlag,		METH_VARARGS },
 		{ "IsEnableTestServerFlag",		appIsEnableTestServerFlag,		METH_VARARGS },
-
 		{ "SetGuildMarkPath",			appSetGuildMarkPath,			METH_VARARGS },
-
-		{ "OnLogoUpdate",				appLogoUpdate,					METH_VARARGS },
-		{ "OnLogoRender",				appLogoRender,					METH_VARARGS },
-		{ "OnLogoOpen",					appLogoOpen,					METH_VARARGS },
-		{ "OnLogoClose",				appLogoClose,					METH_VARARGS },
-	
 
 		{ NULL, NULL },
 	};
