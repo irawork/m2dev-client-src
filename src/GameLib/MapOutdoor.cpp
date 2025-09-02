@@ -208,10 +208,7 @@ bool CMapOutdoor::Destroy()
 	CTerrain::DestroySystem();
 	CArea::DestroySystem();
 
-	RemoveAllMonsterAreaInfo();
-
 	m_rkList_kGuildArea.clear();
-	m_kPool_kMonsterAreaInfo.Destroy();
 	m_AlphaFogImageInstance.Destroy();
 
 	CSpeedTreeForestDirectX8::Instance().Clear();
@@ -1257,63 +1254,6 @@ bool CMapOutdoor::GetAttr(int iX, int iY, BYTE * pbyAttr)
 	*pbyAttr = byAttr;
 
 	return true;
-}
-
-// MonsterAreaInfo
-CMonsterAreaInfo * CMapOutdoor::AddMonsterAreaInfo(long lOriginX, long lOriginY, long lSizeX, long lSizeY)
-{
-	CMonsterAreaInfo * pMonsterAreaInfo = m_kPool_kMonsterAreaInfo.Alloc();
-	pMonsterAreaInfo->Clear();
-	pMonsterAreaInfo->SetOrigin(lOriginX, lOriginY);
-	pMonsterAreaInfo->SetSize(lSizeX, lSizeY);
-	m_MonsterAreaInfoPtrVector.push_back(pMonsterAreaInfo);
-
-	return pMonsterAreaInfo;
-}
-
-void CMapOutdoor::RemoveAllMonsterAreaInfo()
-{
-	m_MonsterAreaInfoPtrVectorIterator = m_MonsterAreaInfoPtrVector.begin();
-	while (m_MonsterAreaInfoPtrVectorIterator != m_MonsterAreaInfoPtrVector.end())
-	{
-		CMonsterAreaInfo * pMonsterAreaInfo = *m_MonsterAreaInfoPtrVectorIterator;
-		pMonsterAreaInfo->Clear();
-		++m_MonsterAreaInfoPtrVectorIterator;
-	}
-	m_kPool_kMonsterAreaInfo.FreeAll();
-	m_MonsterAreaInfoPtrVector.clear();
-}
-
-bool CMapOutdoor::GetMonsterAreaInfoFromVectorIndex(DWORD dwMonsterAreaInfoVectorIndex, CMonsterAreaInfo ** ppMonsterAreaInfo)
-{
-	if (dwMonsterAreaInfoVectorIndex >= m_MonsterAreaInfoPtrVector.size())
-		return false;
-	
-	*ppMonsterAreaInfo = m_MonsterAreaInfoPtrVector[dwMonsterAreaInfoVectorIndex];
-	return true;
-}
-
-//////////////////////////////////////////////////////////////////////////
-CMonsterAreaInfo * CMapOutdoor::AddNewMonsterAreaInfo(long lOriginX, long lOriginY, long lSizeX, long lSizeY,
-										CMonsterAreaInfo::EMonsterAreaInfoType eMonsterAreaInfoType,
-										DWORD dwVID, DWORD dwCount, CMonsterAreaInfo::EMonsterDir eMonsterDir)
-{
-	CMonsterAreaInfo * pMonsterAreaInfo = m_kPool_kMonsterAreaInfo.Alloc();
-	pMonsterAreaInfo->Clear();
-	pMonsterAreaInfo->SetOrigin(lOriginX, lOriginY);
-	pMonsterAreaInfo->SetSize(lSizeX, lSizeY);
-
-	pMonsterAreaInfo->SetMonsterAreaInfoType(eMonsterAreaInfoType);
-
-	if (CMonsterAreaInfo::MONSTERAREAINFOTYPE_MONSTER == eMonsterAreaInfoType)
-		pMonsterAreaInfo->SetMonsterVID(dwVID);
-	else if (CMonsterAreaInfo::MONSTERAREAINFOTYPE_GROUP == eMonsterAreaInfoType)
-		pMonsterAreaInfo->SetMonsterGroupID(dwVID);
-	pMonsterAreaInfo->SetMonsterCount(dwCount);
-	pMonsterAreaInfo->SetMonsterDirection(eMonsterDir);
-	m_MonsterAreaInfoPtrVector.push_back(pMonsterAreaInfo);
-
-	return pMonsterAreaInfo;
 }
 
 //////////////////////////////////////////////////////////////////////////

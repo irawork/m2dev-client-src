@@ -14,9 +14,6 @@
 #include "AreaTerrain.h"
 #include "AreaLoaderThread.h"
 
-#include "MonsterAreaInfo.h"
-
-
 #define LOAD_SIZE_WIDTH				1
 
 #define AROUND_AREA_NUM				1+(LOAD_SIZE_WIDTH*2)*(LOAD_SIZE_WIDTH*2)*2
@@ -671,24 +668,6 @@ class CMapOutdoor : public CMapBase
 		CGraphicImageInstance	m_attrImageInstance;
 		CGraphicImageInstance	m_BuildingTransparentImageInstance;
 		D3DXMATRIX				m_matBuildingTransparent;
-
-	protected:
-		CDynamicPool<CMonsterAreaInfo>		m_kPool_kMonsterAreaInfo;
-		TMonsterAreaInfoPtrVector			m_MonsterAreaInfoPtrVector;
-		TMonsterAreaInfoPtrVectorIterator	m_MonsterAreaInfoPtrVectorIterator;
-
-	public:
-		bool LoadMonsterAreaInfo();
-
-		CMonsterAreaInfo * AddMonsterAreaInfo(long lOriginX, long lOriginY, long lSizeX, long lSizeY);
-		void RemoveAllMonsterAreaInfo();
-
-		DWORD GetMonsterAreaInfoCount() { return m_MonsterAreaInfoPtrVector.size();	}
-		bool GetMonsterAreaInfoFromVectorIndex(DWORD dwMonsterAreaInfoVectorIndex, CMonsterAreaInfo ** ppMonsterAreaInfo);
-
-		CMonsterAreaInfo * AddNewMonsterAreaInfo(long lOriginX, long lOriginY, long lSizeX, long lSizeY,
-			CMonsterAreaInfo::EMonsterAreaInfoType eMonsterAreaInfoType,
-			DWORD dwVID, DWORD dwCount, CMonsterAreaInfo::EMonsterDir eMonsterDir);
 
 	public:
 		void GetBaseXY(DWORD * pdwBaseX, DWORD * pdwBaseY);
