@@ -1145,8 +1145,6 @@ PyObject* appLogoOpen(PyObject* poSelf, PyObject* poArgs)
 		return Py_BuildException();
 
 	int nIsSuccess = 1; //CPythonApplication::Instance().OnLogoOpen(szName);
-	CMovieMan::Instance().PlayLogo(szName);
-
 	return Py_BuildValue("i", nIsSuccess);
 }
 

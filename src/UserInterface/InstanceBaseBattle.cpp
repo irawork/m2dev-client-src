@@ -468,10 +468,6 @@ void CInstanceBase::RunComboAttack(float fAtkDirRot, DWORD wMotionIndex)
 // 리턴값 TRUE가 무엇인가가 있다
 BOOL CInstanceBase::CheckAdvancing()
 {
-#ifdef __MOVIE_MODE__
-	if (IsMovieMode())
-		return FALSE;
-#endif
 	if (!__IsMainInstance() && !IsAttacking())
 	{
 		if (IsPC() && IsWalking())
@@ -584,10 +580,6 @@ BOOL CInstanceBase::CheckAttacking(CInstanceBase& rkInstVictim)
 
 	if (rkInstVictim.IsInSafe())
 		return FALSE;
-
-#ifdef __MOVIE_MODE__
-	return FALSE;
-#endif
 
 	if (!m_GraphicThingInstance.AttackingProcess(rkInstVictim.m_GraphicThingInstance))
 		return FALSE;

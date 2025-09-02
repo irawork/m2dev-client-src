@@ -285,14 +285,7 @@ void CPythonCharacterManager::UpdateTransform()
 		t2=timeGetTime();
 #endif
 
-#ifdef __MOVIE_MODE__
-		if (!m_pkInstMain->IsMovieMode())
-		{
-			rkBG.CheckAdvancing(m_pkInstMain);
-		}
-#else
 		rkBG.CheckAdvancing(m_pkInstMain);
-#endif
 	}
 
 #ifdef __PERFORMANCE_CHECKER__
@@ -740,16 +733,6 @@ void CPythonCharacterManager::__NEW_Pick()
 	__UpdateSortPickedActorList();
 
 	CInstanceBase* pkInstMain=GetMainInstancePtr();
-
-#ifdef __MOVIE_MODE
-	if (pkInstMain)
-		if (pkInstMain->IsMovieMode())
-		{
-			if (m_pkInstPick)
-				m_pkInstPick->OnUnselected();
-			return;
-		}
-#endif
 
 	// 정밀한 체크
 	{

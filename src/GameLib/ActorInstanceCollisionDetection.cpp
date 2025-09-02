@@ -643,12 +643,7 @@ BOOL CActorInstance::TestActorCollision(CActorInstance & rVictim)
 }
 
 bool CActorInstance::AvoidObject(const CGraphicObjectInstance& c_rkBGObj)
-{	
-#ifdef __MOVIE_MODE__
-	if (IsMovieMode())
-		return false;
-#endif	
-
+{
 	if (this==&c_rkBGObj)
 		return false;
 

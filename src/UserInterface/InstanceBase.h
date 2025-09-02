@@ -603,9 +603,6 @@ class CInstanceBase
 		BOOL					CanCancelSkill();
 		BOOL					CanAttackHorseLevel();
 
-#ifdef __MOVIE_MODE__
-		BOOL					IsMovieMode(); // 운영자용 완전히 안보이는거
-#endif
 		bool					NEW_CanMoveToDestPixelPosition(const TPixelPosition& c_rkPPosDst);
 
 		void					NEW_SetAdvancingRotationFromPixelPosition(const TPixelPosition& c_rkPPosSrc, const TPixelPosition& c_rkPPosDst);

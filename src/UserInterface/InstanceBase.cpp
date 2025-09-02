@@ -434,18 +434,6 @@ float CInstanceBase::__GetBackgroundHeight(float x, float y)
 	return rkBG.GetHeight(x, y);
 }
 
-#ifdef __MOVIE_MODE__
-
-BOOL CInstanceBase::IsMovieMode()
-{
-	if (IsAffect(AFFECT_INVISIBILITY))
-		return true;
-
-	return false;
-}
-
-#endif
-
 BOOL CInstanceBase::IsInvisibility()
 {
 	if (IsAffect(AFFECT_INVISIBILITY))
@@ -579,11 +567,6 @@ float CInstanceBase::CalculateDistanceSq3d(const TPixelPosition& c_rkPPosDst)
 
 void CInstanceBase::OnSelected()
 {
-#ifdef __MOVIE_MODE__
-	if (!__IsExistMainInstance())
-		return;
-#endif
-
 	if (IsStoneDoor())
 		return;
 
@@ -600,11 +583,6 @@ void CInstanceBase::OnUnselected()
 
 void CInstanceBase::OnTargeted()
 {
-#ifdef __MOVIE_MODE__
-	if (!__IsExistMainInstance())
-		return;
-#endif
-
 	if (IsStoneDoor())
 		return;
 
