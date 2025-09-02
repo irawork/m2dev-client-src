@@ -4,8 +4,6 @@
 #include "PythonGridSlotWindow.h"
 #include "PythonWindowManager.h"
 
-//#define __WINDOW_LEAK_CHECK__
-
 BOOL g_bShowOverInWindowName = FALSE;
 
 namespace UI
@@ -75,15 +73,6 @@ namespace UI
 	void CWindowManager::Destroy()
 	{
 		__ClearReserveDeleteWindowList();
-#ifdef __WINDOW_LEAK_CHECK__
-		std::set<CWindow*>::iterator i;
-		for (i=gs_kSet_pkWnd.begin(); i!=gs_kSet_pkWnd.end(); ++i)
-		{
-			CWindow* pkWnd=*i;
-			Logf(1, "CWindowManager::Destroy LOST WINDOW %s\n", pkWnd->GetName());
-		}
-#endif		
-
 	}
 
 	void CWindowManager::SetMouseHandler(PyObject * poMouseHandler)
@@ -97,9 +86,6 @@ namespace UI
 
 		CWindow * pWin = new CWindow(po);
 		m_LayerWindowMap[c_szLayer]->AddChild(pWin);
-#ifdef __WINDOW_LEAK_CHECK__
-		gs_kSet_pkWnd.insert(pWin);
-#endif
 		return (pWin);
 	}
 
@@ -159,7 +145,7 @@ namespace UI
 				assert(!"CWindowManager::__NewWindow");
 				break;
 		}	
-		return new CWindow(po);				
+		return new CWindow(po);
 	}
 
 	CWindow *	CWindowManager::RegisterTypeWindow(PyObject * po, DWORD dwWndType, const char * c_szLayer)
@@ -168,10 +154,6 @@ namespace UI
 
 		CWindow * pWin = __NewWindow(po, dwWndType);
 		m_LayerWindowMap[c_szLayer]->AddChild(pWin);
-
-#ifdef __WINDOW_LEAK_CHECK__
-		gs_kSet_pkWnd.insert(pWin);
-#endif		
 		return pWin;
 	}
 
@@ -182,9 +164,6 @@ namespace UI
 		CWindow * pWin = new CSlotWindow(po);
 		m_LayerWindowMap[c_szLayer]->AddChild(pWin);
 
-#ifdef __WINDOW_LEAK_CHECK__
-		gs_kSet_pkWnd.insert(pWin);
-#endif		
 		return pWin;
 	}
 
@@ -195,9 +174,6 @@ namespace UI
 		CWindow * pWin = new CGridSlotWindow(po);
 		m_LayerWindowMap[c_szLayer]->AddChild(pWin);
 
-#ifdef __WINDOW_LEAK_CHECK__
-		gs_kSet_pkWnd.insert(pWin);
-#endif
 		return pWin;
 	}
 
@@ -208,9 +184,6 @@ namespace UI
 		CWindow * pWin = new CTextLine(po);
 		m_LayerWindowMap[c_szLayer]->AddChild(pWin);
 
-#ifdef __WINDOW_LEAK_CHECK__
-		gs_kSet_pkWnd.insert(pWin);
-#endif
 		return pWin;
 	}
 
@@ -221,9 +194,6 @@ namespace UI
 		CWindow * pWin = new CImageBox(po);
 		m_LayerWindowMap[c_szLayer]->AddChild(pWin);
 
-#ifdef __WINDOW_LEAK_CHECK__
-		gs_kSet_pkWnd.insert(pWin);
-#endif
 		return pWin;
 	}
 
@@ -234,9 +204,6 @@ namespace UI
 		CWindow * pWin = new CMarkBox(po);
 		m_LayerWindowMap[c_szLayer]->AddChild(pWin);
 
-#ifdef __WINDOW_LEAK_CHECK__
-		gs_kSet_pkWnd.insert(pWin);
-#endif
 		return pWin;
 	}
 
@@ -247,9 +214,6 @@ namespace UI
 		CWindow * pWin = new CExpandedImageBox(po);
 		m_LayerWindowMap[c_szLayer]->AddChild(pWin);
 
-#ifdef __WINDOW_LEAK_CHECK__
-		gs_kSet_pkWnd.insert(pWin);
-#endif
 		return pWin;
 	}
 
@@ -260,9 +224,6 @@ namespace UI
 		CWindow * pWin = new CAniImageBox(po);
 		m_LayerWindowMap[c_szLayer]->AddChild(pWin);
 
-#ifdef __WINDOW_LEAK_CHECK__
-		gs_kSet_pkWnd.insert(pWin);
-#endif
 		return pWin;
 	}
 
@@ -273,9 +234,6 @@ namespace UI
 		CWindow * pWin = new CButton(po);
 		m_LayerWindowMap[c_szLayer]->AddChild(pWin);
 
-#ifdef __WINDOW_LEAK_CHECK__
-		gs_kSet_pkWnd.insert(pWin);
-#endif
 		return pWin;
 	}
 
@@ -286,9 +244,6 @@ namespace UI
 		CWindow * pWin = new CRadioButton(po);
 		m_LayerWindowMap[c_szLayer]->AddChild(pWin);
 
-#ifdef __WINDOW_LEAK_CHECK__
-		gs_kSet_pkWnd.insert(pWin);
-#endif
 		return pWin;
 	}
 
@@ -299,9 +254,6 @@ namespace UI
 		CWindow * pWin = new CToggleButton(po);
 		m_LayerWindowMap[c_szLayer]->AddChild(pWin);
 
-#ifdef __WINDOW_LEAK_CHECK__
-		gs_kSet_pkWnd.insert(pWin);
-#endif
 		return pWin;
 	}
 
@@ -312,9 +264,6 @@ namespace UI
 		CWindow * pWin = new CDragButton(po);
 		m_LayerWindowMap[c_szLayer]->AddChild(pWin);
 
-#ifdef __WINDOW_LEAK_CHECK__
-		gs_kSet_pkWnd.insert(pWin);
-#endif
 		return pWin;
 	}
 
@@ -325,9 +274,6 @@ namespace UI
 		CWindow * pWin = new CBox(po);
 		m_LayerWindowMap[c_szLayer]->AddChild(pWin);
 
-#ifdef __WINDOW_LEAK_CHECK__
-		gs_kSet_pkWnd.insert(pWin);
-#endif
 		return pWin;
 	}
 
@@ -338,9 +284,6 @@ namespace UI
 		CWindow * pWin = new CBar(po);
 		m_LayerWindowMap[c_szLayer]->AddChild(pWin);
 
-#ifdef __WINDOW_LEAK_CHECK__
-		gs_kSet_pkWnd.insert(pWin);
-#endif
 		return pWin;
 	}
 
@@ -351,9 +294,6 @@ namespace UI
 		CWindow * pWin = new CLine(po);
 		m_LayerWindowMap[c_szLayer]->AddChild(pWin);
 
-#ifdef __WINDOW_LEAK_CHECK__
-		gs_kSet_pkWnd.insert(pWin);
-#endif
 		return pWin;
 	}
 
@@ -364,9 +304,6 @@ namespace UI
 		CWindow * pWin = new CBar3D(po);
 		m_LayerWindowMap[c_szLayer]->AddChild(pWin);
 
-#ifdef __WINDOW_LEAK_CHECK__
-		gs_kSet_pkWnd.insert(pWin);
-#endif
 		return pWin;
 	}
 
@@ -377,9 +314,6 @@ namespace UI
 		CWindow * pWin = new CNumberLine(po);
 		m_LayerWindowMap[c_szLayer]->AddChild(pWin);
 
-#ifdef __WINDOW_LEAK_CHECK__
-		gs_kSet_pkWnd.insert(pWin);
-#endif
 		return pWin;
 	}
 
@@ -682,9 +616,6 @@ namespace UI
 		for (TWindowContainer::iterator itor = m_ReserveDeleteWindowList.begin(); itor != m_ReserveDeleteWindowList.end(); ++itor)
 		{
 			CWindow * pWin = *itor;
-#ifdef __WINDOW_LEAK_CHECK__
-			gs_kSet_pkWnd.erase(pWin);
-#endif
 			delete pWin;
 		}
 		m_ReserveDeleteWindowList.clear();
