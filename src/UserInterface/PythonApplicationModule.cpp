@@ -1111,41 +1111,10 @@ PyObject * appSetGuildMarkPath(PyObject * poSelf, PyObject * poArgs)
 	return Py_BuildNone();
 }
 
-PyObject* appIsDevStage(PyObject* poSelf, PyObject* poArgs)
-{
-	int nIsDevelopmentStage = 0;
-#if defined(LOCALE_SERVICE_STAGE_DEVELOPMENT)
-	nIsDevelopmentStage = 1;
-#endif
-	return Py_BuildValue("i", nIsDevelopmentStage);
-}
-
-PyObject* appIsTestStage(PyObject* poSelf, PyObject* poArgs)
-{
-	int nIsTestStage = 0;
-#if defined(LOCALE_SERVICE_STAGE_TEST)
-	nIsTestStage = 1;
-#endif
-	return Py_BuildValue("i", nIsTestStage);
-}
-
-PyObject* appIsLiveStage(PyObject* poSelf, PyObject* poArgs)
-{
-	int nIsLiveStage = 0;
-#if !defined(LOCALE_SERVICE_STAGE_TEST) && !defined(LOCALE_SERVICE_STAGE_DEVELOPMENT)
-	nIsLiveStage = 1;
-#endif
-	return Py_BuildValue("i", nIsLiveStage);
-}
-
 void initapp()
 {
 	static PyMethodDef s_methods[] =
-	{	
-		{ "IsDevStage",					appIsDevStage,					METH_VARARGS },
-		{ "IsTestStage",				appIsTestStage,					METH_VARARGS },
-		{ "IsLiveStage",				appIsLiveStage,					METH_VARARGS },
-
+	{
 		// TEXTTAIL_LIVINGTIME_CONTROL
 		{ "SetTextTailLivingTime",		appSetTextTailLivingTime,		METH_VARARGS },
 		// END_OF_TEXTTAIL_LIVINGTIME_CONTROL
