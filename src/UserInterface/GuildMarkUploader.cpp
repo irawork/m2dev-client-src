@@ -6,9 +6,6 @@
 #include "stb_image.h"
 #include "stb_image_write.h"
 
-#ifdef __VTUNE__
-#else
-
 CGuildMarkUploader::CGuildMarkUploader()
  : m_pbySymbolBuf(NULL)
 {
@@ -460,4 +457,3 @@ bool CGuildMarkUploader::__AnalyzePacket(UINT uHeader, UINT uPacketSize, bool (C
 
 	return (this->*pfnDispatchPacket)();
 }
-#endif
