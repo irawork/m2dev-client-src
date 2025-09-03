@@ -149,8 +149,8 @@ class CMapOutdoor : public CMapBase
 	protected:
 		bool			__PickTerrainHeight(float& fPos, const D3DXVECTOR3& v3Start, const D3DXVECTOR3& v3End, float fStep, float fRayRange, float fLimitRange, D3DXVECTOR3* pv3Pick);
 
-		virtual void	__ClearGarvage();
-		virtual void	__UpdateGarvage();
+		virtual void	__ClearGarbage();
+		virtual void	__UpdateGarbage();
 
 		virtual bool	LoadTerrain(WORD wTerrainCoordX, WORD wTerrainCoordY, WORD wCellCoordX, WORD wCellCoordY);
 		virtual bool	LoadArea(WORD wAreaCoordX, WORD wAreaCoordY, WORD wCellCoordX, WORD wCellCoordY);

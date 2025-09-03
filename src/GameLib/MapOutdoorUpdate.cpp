@@ -116,7 +116,7 @@ bool CMapOutdoor::Update(float fX, float fY, float fZ)
 #ifdef __PERFORMANCE_CHECKER__
 	DWORD t4=ELTimer_GetMSec();
 #endif
-	__UpdateGarvage();
+	__UpdateGarbage();
 #ifdef __PERFORMANCE_CHECKER__
 	DWORD t5=ELTimer_GetMSec();
 #endif
@@ -820,7 +820,7 @@ void CMapOutdoor::FPushAreaToDeleteVector::operator () (CArea * pArea)
 	}
 }
 
-void CMapOutdoor::__ClearGarvage()
+void CMapOutdoor::__ClearGarbage()
 {
 	std::for_each(m_TerrainDeleteVector.begin(), m_TerrainDeleteVector.end(), CTerrain::Delete);
 	m_TerrainDeleteVector.clear();
@@ -829,7 +829,7 @@ void CMapOutdoor::__ClearGarvage()
 	m_AreaDeleteVector.clear();
 }
 
-void CMapOutdoor::__UpdateGarvage()
+void CMapOutdoor::__UpdateGarbage()
 {
 	const DWORD dwTerrainEraseInterval = 1000 * 60;
 	static DWORD dwEraseTime = ELTimer_GetMSec();
@@ -869,7 +869,7 @@ void CMapOutdoor::UpdateAreaList(long lCenterX, long lCenterY)
 	if (m_TerrainVector.size() <= AROUND_AREA_NUM && m_AreaVector.size() <= AROUND_AREA_NUM)
 		return;
 
-	__ClearGarvage();
+	__ClearGarbage();
 	
 	FPushToDeleteVector::EDeleteDir eDeleteLRDir, eDeleteTBDir;
 
