@@ -408,24 +408,7 @@ void CGrannyLODController::DestroyDeviceObjects()
 void CGrannyLODController::RenderWithOneTexture()
 {
 	assert(m_pCurrentModelInstance != NULL);
-
-//#define CHECK_LOD
-#ifdef CHECK_LOD
-	if (m_que_pkModelInst.size() > 0 && m_pCurrentModelInstance == m_que_pkModelInst[0])
-		m_pCurrentModelInstance->RenderWithoutTexture();
-
-	if (m_que_pkModelInst.size() > 1 && m_pCurrentModelInstance == m_que_pkModelInst[1])
-		m_pCurrentModelInstance->RenderWithOneTexture();
-
-	if (m_que_pkModelInst.size() > 2 && m_pCurrentModelInstance == m_que_pkModelInst[2])
-		m_pCurrentModelInstance->RenderWithOneTexture();
-
-	if (m_que_pkModelInst.size() > 3 && m_pCurrentModelInstance == m_que_pkModelInst[3])
-		m_pCurrentModelInstance->RenderWithOneTexture();
-
-#else
 	m_pCurrentModelInstance->RenderWithOneTexture();
-#endif
 }
 
 void CGrannyLODController::BlendRenderWithOneTexture()
