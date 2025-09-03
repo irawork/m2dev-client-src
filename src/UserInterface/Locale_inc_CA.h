@@ -1,4 +1,0 @@
-#define LOCALE_SERVICE_CANADA				// 캐나다
-
-#define ENABLE_COSTUME_SYSTEM
-#define ENABLE_ENERGY_SYSTEM
