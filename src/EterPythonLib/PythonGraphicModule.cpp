@@ -804,62 +804,12 @@ PyObject * grpGetAvailableMemory(PyObject * poSelf, PyObject * poArgs)
 }
 
 // SCREENSHOT_CWDSAVE
-PyObject * grpSaveScreenShotToPath(PyObject * poSelf, PyObject * poArgs)
+PyObject* grpSaveScreenShotToPath(PyObject* poSelf, PyObject* poArgs)
 {
-	char * szBasePath;
-	if (!PyTuple_GetString(poArgs, 0, &szBasePath))
-		return Py_BuildException();
-
-	struct tm * tmNow;
-	time_t ct;
-
-	ct = time(0);
-	tmNow = localtime(&ct);
-
-	char szPath[MAX_PATH + 256];
-	snprintf(szPath, sizeof(szPath), "%s%02d%02d_%02d%02d%02d.jpg", 
-			szBasePath,
-			tmNow->tm_mon + 1,
-			tmNow->tm_mday,
-			tmNow->tm_hour,
-			tmNow->tm_min,
-			tmNow->tm_sec);
-
-	BOOL bResult = CPythonGraphic::Instance().SaveScreenShot(szPath);
-	return Py_BuildValue("(is)", bResult, szPath);
+	CPythonGraphic::Instance().SaveScreenShot();
+	return Py_BuildNone();
 }
 // END_OF_SCREENSHOT_CWDSAVE
-
-PyObject * grpSaveScreenShot(PyObject * poSelf, PyObject * poArgs)
-{
-	struct tm * tmNow;
-	time_t ct;
-
-	ct = time(0);
-	tmNow = localtime(&ct);
-
-	char szPath[MAX_PATH + 256];
-	SHGetSpecialFolderPath(NULL, szPath, CSIDL_PERSONAL, TRUE);
-	//GetTempPath();
-	strcat(szPath, "\\METIN2\\");
-
-	if (-1 == _access(szPath, 0))
-		if (!CreateDirectory(szPath, NULL))
-		{
-			TraceError("Failed to create directory [%s]\n", szPath);
-			return Py_BuildValue("(is)", FALSE, "");
-		}
-
-	sprintf(szPath + strlen(szPath), "%02d%02d_%02d%02d%02d.jpg", 
-			tmNow->tm_mon + 1,
-			tmNow->tm_mday,
-			tmNow->tm_hour,
-			tmNow->tm_min,
-			tmNow->tm_sec);
-
-	BOOL bResult = CPythonGraphic::Instance().SaveScreenShot(szPath);
-	return Py_BuildValue("(is)", bResult, szPath);
-}
 
 PyObject * grpSetGamma(PyObject * poSelf, PyObject * poArgs)
 {
@@ -970,7 +920,6 @@ void initgrp()
 		{ "RenderDownButton",			grpRenderDownButton,			METH_VARARGS },
 		{ "RenderUpButton",				grpRenderUpButton,				METH_VARARGS },
 		{ "GetAvailableMemory",			grpGetAvailableMemory,			METH_VARARGS },
-		{ "SaveScreenShot",				grpSaveScreenShot,				METH_VARARGS },
 		{ "SaveScreenShotToPath",		grpSaveScreenShotToPath,		METH_VARARGS },
 		{ "SetGamma",					grpSetGamma,					METH_VARARGS },
 		{ "SetInterfaceRenderState",	grpSetInterfaceRenderState,		METH_VARARGS },
