@@ -241,40 +241,6 @@ namespace UI
 		}
 		m_rect.bottom	= m_rect.top + m_lHeight;
 
-#if defined( _USE_CPP_RTL_FLIP )
-		if( m_pParent == NULL ) {
-			m_rect.left		= m_x;
-			m_rect.right	= m_rect.left + m_lWidth;
-		} else {
-			if( m_pParent->IsFlag(UI::CWindow::FLAG_RTL) == true ) {
-				m_rect.left = m_pParent->GetWidth() - m_lWidth - m_x;
-				switch (m_HorizontalAlign)
-				{
-					case HORIZONTAL_ALIGN_RIGHT:
-						m_rect.left = - m_x;
-						break;
-					case HORIZONTAL_ALIGN_CENTER:
-						m_rect.left = m_pParent->GetWidth() / 2 - GetWidth() - m_x;
-						break;
-				}
-				m_rect.left += m_pParent->m_rect.left;
-				m_rect.right = m_rect.left + m_lWidth;
-			} else {
-				m_rect.left		= m_x;
-				switch (m_HorizontalAlign)
-				{
-					case HORIZONTAL_ALIGN_RIGHT:
-						m_rect.left = m_pParent->GetWidth() - m_rect.left;
-						break;
-					case HORIZONTAL_ALIGN_CENTER:
-						m_rect.left = (m_pParent->GetWidth() - GetWidth()) / 2 + m_rect.left;
-						break;
-				}
-				m_rect.left += m_pParent->m_rect.left;
-				m_rect.right = m_rect.left + m_lWidth;
-			}
-		}
-#else
 		m_rect.left		= m_x;
 		if (m_pParent)
 		{
@@ -290,7 +256,7 @@ namespace UI
 			m_rect.left += 0L < m_pParent->GetWidth() ? m_pParent->m_rect.left : m_pParent->m_rect.right + ::abs(m_pParent->GetWidth());
 		}
 		m_rect.right = m_rect.left + m_lWidth;
-#endif
+
 		std::for_each(m_pChildList.begin(), m_pChildList.end(), std::mem_fn(&CWindow::UpdateRect));
 
 		OnChangePosition();
