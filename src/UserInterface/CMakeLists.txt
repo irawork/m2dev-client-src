@@ -10,7 +10,6 @@ set_target_properties(UserInterface PROPERTIES LINK_FLAGS "/level='requireAdmini
 
 target_link_libraries(UserInterface 
 	AudioLib
-	Discord
 	EffectLib 
 	EterBase 
 	EterGrnLib 

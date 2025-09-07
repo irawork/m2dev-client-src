@@ -959,10 +959,6 @@ bool CPythonApplication::Create(PyObject * poSelf, const char * c_szName, int wi
 		CPythonIME::Instance().UseDefaultIME();
 	}
 
-#if defined(ENABLE_DISCORD_RPC)
-	m_pyNetworkStream.Discord_Start();
-#endif
-
 	// Ç®½ºÅ©¸° ¸ðµåÀÌ°í
 	// µðÆúÆ® IME ¸¦ »ç¿ëÇÏ°Å³ª À¯·´ ¹öÀüÀÌ¸é
 	// À©µµ¿ì Ç®½ºÅ©¸° ¸ðµå¸¦ »ç¿ëÇÑ´Ù
@@ -1254,12 +1250,7 @@ void CPythonApplication::Destroy()
 	GrannyDestroySharedDeformBuffer();
 
 	m_pyGraphic.Destroy();
-	
-#if defined(ENABLE_DISCORD_RPC)
-	m_pyNetworkStream.Discord_Close();
-#endif	
-	
-	//m_pyNetworkDatagram.Destroy();	
+	//m_pyNetworkDatagram.Destroy();
 
 	m_pyRes.Destroy();
 

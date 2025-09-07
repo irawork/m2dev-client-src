@@ -79,15 +79,9 @@ class CPythonNetworkStream : public CNetworkStream, public CSingleton<CPythonNet
 
 		void StartGame();
 		void Warp(LONG lGlobalX, LONG lGlobalY);
-		
-		void NotifyHack(const char* c_szMsg);		
-		void SetWaitFlag();
-#if defined(ENABLE_DISCORD_RPC)
-		void Discord_Start();
-		void Discord_Close();
-		void Discord_Update(const bool bInGame);
-#endif
 
+		void NotifyHack(const char* c_szMsg);
+		void SetWaitFlag();
 		void SendEmoticon(UINT eEmoticon);
 
 		void ExitApplication();
@@ -96,7 +90,7 @@ class CPythonNetworkStream : public CNetworkStream, public CSingleton<CPythonNet
 		void AbsoluteExitGame();
 		void AbsoluteExitApplication();
 
-		void EnableChatInsultFilter(bool isEnable);		
+		void EnableChatInsultFilter(bool isEnable);
 		bool IsChatInsultIn(const char* c_szMsg);
 		bool IsInsultIn(const char* c_szMsg);
 
