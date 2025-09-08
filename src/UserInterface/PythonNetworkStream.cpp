@@ -180,7 +180,7 @@ class CMainPacketHeaderMap : public CNetworkPacketHeaderMap
 		}
 };
 
-int g_iLastPacket[2] = { 0, 0 };
+static std::vector <uint8_t> gs_vecLastHeaders;
 
 void CPythonNetworkStream::ExitApplication()
 {
@@ -524,7 +524,10 @@ bool CPythonNetworkStream::CheckPacket(TPacketHeader * pRetHeader)
 
 	if (!s_packetHeaderMap.Get(header, &PacketType))
 	{
-		TraceError("Unknown packet header: %d, last: %d %d", header, g_iLastPacket[0], g_iLastPacket[1]);
+		TraceError("Unknown packet header: %u(0x%X), Phase: %s, Last packets:", header, header, m_strPhase.c_str());
+		for (const auto& it : gs_vecLastHeaders)
+			TraceError("%u(0x%X)", it, it);
+
 		ClearRecvBuffer();
 
 		PostQuitMessage(0);
@@ -551,11 +554,15 @@ bool CPythonNetworkStream::CheckPacket(TPacketHeader * pRetHeader)
 	{
 		if (!Peek(PacketType.iPacketSize))
 		{
-			TraceError("Not enough packet size: header %d packet size: %d, recv buffer size: %d (last: %d %d)",
+			TraceError("Not enough packet size: header %d packet size: %d, recv buffer size: %d last packets:",
 				header,
 				PacketType.iPacketSize,
-				GetRecvBufferSize(),
-				g_iLastPacket[0], g_iLastPacket[1]);
+				GetRecvBufferSize()
+			);
+
+			for (const auto& it : gs_vecLastHeaders)
+				TraceError("%u(0x%X)", it, it);
+
 			return false;
 		}
 	}
@@ -565,8 +572,12 @@ bool CPythonNetworkStream::CheckPacket(TPacketHeader * pRetHeader)
 
 	*pRetHeader = header;	
 
-	g_iLastPacket[0] = g_iLastPacket[1];
-	g_iLastPacket[1] = header;
+	// Add to last headers, if last header is contain more than 10 headers, remove first header
+	if (gs_vecLastHeaders.size() > 10)
+		gs_vecLastHeaders.erase(gs_vecLastHeaders.begin());
+
+	gs_vecLastHeaders.push_back(header);
+
 	//Tracenf("header %d size %d", header, PacketType.iPacketSize);
 	//Tracenf("header %d size %d outputpos[%d] security %u", header, PacketType.iPacketSize, m_recvBufOutputPos, IsSecurityMode());
 	return true;
@@ -574,8 +585,9 @@ bool CPythonNetworkStream::CheckPacket(TPacketHeader * pRetHeader)
 
 bool CPythonNetworkStream::RecvErrorPacket(int header)
 {
-	TraceError("Phase %s does not handle this header (header: %d, last: %d, %d)",
-		m_strPhase.c_str(), header, g_iLastPacket[0], g_iLastPacket[1]);
+	TraceError("Phase %s does not handle this header (header: %u(0x%X)) Last packets: ", m_strPhase.c_str(), header);
+	for (const auto& it : gs_vecLastHeaders)
+		TraceError("%u(0x%X)", it, it);
 
 	ClearRecvBuffer();
 	return true;
